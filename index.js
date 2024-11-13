@@ -6,7 +6,7 @@ const app = express();
 app.post("/v1/chat/completions", async (req, res) => {
   try {
     const stream = await streamResponse1();
-    stream.pipe(res);
+    stream.pipe(res).header({ "Content-Type": "text/event-stream" });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
@@ -17,7 +17,7 @@ app.post("/v1/chat/completions", async (req, res) => {
 app.post("/v2/chat/completions", async (req, res) => {
   try {
     const stream = await streamResponse2();
-    stream.pipe(res);
+    stream.pipe(res).header({ "Content-Type": "text/event-stream" });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send("Internal Server Error");
